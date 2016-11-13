@@ -8,6 +8,7 @@ var app =    require('../app');
 var debug =  require('debug')('one-trick-pony:server');
 var http =   require('http');
 var dnsd =   require('dnsd');
+var colors = require('colors');
 var config = require('../config');
 
 /**
@@ -23,17 +24,19 @@ var config = require('../config');
  */
 
 function dns_handler(req, res) {
-  console.log('%s:%s/%s %j',
-    req.connection.remoteAddress,
-    req.connection.remotePort,
-    req.connection.type,
-    req);
- 
+  var bAuthoritative = false;
+  colors.setTheme({
+    success: 'green',
+    failure: 'red'
+  });
   var question =
     res.question[0],
     hostname = question.name,
     length = hostname.length,
     ttl = Math.floor(Math.random() * 3600);
+
+  //var txtConsole = req.connection.remoteAddress + ':' + req.connection.remotePort + '/' + req.connection.type + ' ' + req;
+  var txtConsole = '  ' + hostname;
 
   // We're only interested in A record DNS queries, noting that the module
   // will itself take care of NS record DNS queries.
@@ -42,22 +45,32 @@ function dns_handler(req, res) {
     if (hostname == 'agar.io' || hostname == 'www.agar.io' || hostname == 'm.agar.io') {
       res.answer.push({name:hostname, type:"A", data:"104.20.26.122", "ttl":ttl});
       res.answer.push({name:hostname, type:"A", data:"104.20.25.122", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
     }
     // Facebook.com authentication
     if (hostname == 'facebook.com') {
       res.answer.push({name:hostname, type:"A", data:"31.13.69.228", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
     }
     if (hostname == 'www.facebook.com') {
       res.answer.push({name:hostname, type:"A", data:"31.13.77.36", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
     }
     if (hostname == 'graph.facebook.com') {
       res.answer.push({name:hostname, type:"A", data:"31.13.77.6", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
     }
-    // AmazonAWS
+    // AmazonAWS.com
     if (hostname == 'prod-miniclip-v3-881814867.us-west-2.elb.amazonaws.com') {
-      res.answer.push({name:hostname, type:"A", data:"52.42.253.135", "ttl":ttl});
       res.answer.push({name:hostname, type:"A", data:"52.43.226.3", "ttl":ttl});
       res.answer.push({name:hostname, type:"A", data:"52.39.93.232", "ttl":ttl});
+      res.answer.push({name:hostname, type:"A", data:"52.42.253.135", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
     }
     // Miniclippt.com
     if (hostname == 'mobile-live-v5-0.agario.miniclippt.com') {
@@ -65,7 +78,12 @@ function dns_handler(req, res) {
       res.answer.push({name:hostname, type:"A", data:"52.9.37.138", "ttl":ttl});
       res.answer.push({name:hostname, type:"A", data:"54.183.177.123", "ttl":ttl});
       res.answer.push({name:hostname, type:"A", data:"52.52.55.140", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
     }
+  }
+  if (!bAuthoritative) {
+    console.log(txtConsole.failure);
   }
   res.end();
 }
