@@ -1,0 +1,174 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app =    require('../app');
+var debug =  require('debug')('one-trick-pony:server');
+var http =   require('http');
+var dnsd =   require('dnsd');
+var config = require('../config');
+
+/**
+ * Set values for the DNS server and the webserver
+ */
+
+//var dnsPort =        3001;
+//var dnsAddr =        '10.20.30.55';
+//var webDefaultPort = 3000;
+
+/**
+ * Create the callback handler for the DNS server
+ */
+
+function dns_handler(req, res) {
+  console.log('%s:%s/%s %j',
+    req.connection.remoteAddress,
+    req.connection.remotePort,
+    req.connection.type,
+    req);
+ 
+  var question =
+    res.question[0],
+    hostname = question.name,
+    length = hostname.length,
+    ttl = Math.floor(Math.random() * 3600);
+
+  // We're only interested in A record DNS queries, noting that the module
+  // will itself take care of NS record DNS queries.
+  if (question.type == 'A') {
+    // Agar.io website
+    if (hostname == 'agar.io' || hostname == 'www.agar.io' || hostname == 'm.agar.io') {
+      res.answer.push({name:hostname, type:"A", data:"104.20.26.122", "ttl":ttl});
+      res.answer.push({name:hostname, type:"A", data:"104.20.25.122", "ttl":ttl});
+    }
+    // Facebook.com authentication
+    if (hostname == 'facebook.com') {
+      res.answer.push({name:hostname, type:"A", data:"31.13.69.228", "ttl":ttl});
+    }
+    if (hostname == 'www.facebook.com') {
+      res.answer.push({name:hostname, type:"A", data:"31.13.77.36", "ttl":ttl});
+    }
+    if (hostname == 'graph.facebook.com') {
+      res.answer.push({name:hostname, type:"A", data:"31.13.77.6", "ttl":ttl});
+    }
+    // AmazonAWS
+    if (hostname == 'prod-miniclip-v3-881814867.us-west-2.elb.amazonaws.com') {
+      res.answer.push({name:hostname, type:"A", data:"52.42.253.135", "ttl":ttl});
+      res.answer.push({name:hostname, type:"A", data:"52.43.226.3", "ttl":ttl});
+      res.answer.push({name:hostname, type:"A", data:"52.39.93.232", "ttl":ttl});
+    }
+    // Miniclippt.com
+    if (hostname == 'mobile-live-v5-0.agario.miniclippt.com') {
+      res.answer.push({name:hostname, type:"A", data:"52.8.170.192", "ttl":ttl});
+      res.answer.push({name:hostname, type:"A", data:"52.9.37.138", "ttl":ttl});
+      res.answer.push({name:hostname, type:"A", data:"54.183.177.123", "ttl":ttl});
+      res.answer.push({name:hostname, type:"A", data:"52.52.55.140", "ttl":ttl});
+    }
+  }
+  res.end();
+}
+
+/**
+ * Start the listener for the DNS server
+ */
+
+var dnsServer = dnsd.createServer(dns_handler);
+dnsServer.zone('agar.io',
+  'ns1.agar.io', 'root@agar.io', 'now', '2h', '30m', '2w', '10m')
+dnsServer.zone('facebook.com',
+  'ns1.facebook.com', 'root@facebook.com', 'now', '2h', '30m', '2w', '10m')
+dnsServer.zone('amazonaws.com',
+  'ns1.amazonaws.com', 'root@amazonaws.com', 'now', '2h', '30m', '2w', '10m')
+dnsServer.zone('miniclippt.com',
+  'ns1.miniclippt.com', 'root@miniclippt.com', 'now', '2h', '30m', '2w', '10m')
+dnsServer.listen(config.dnsPort, config.dnsAddr);
+
+/**
+ * ----------------------------------------------------------------
+ * The rest of this is the standard Express-created file
+ * ----------------------------------------------------------------
+ */
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || config.webDefaultPort);
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : '*:' + addr.port;
+  debug('web server listening on ' + bind);
+  debug('dns server listening on ' + config.dnsAddr + ':' + config.dnsPort);
+}

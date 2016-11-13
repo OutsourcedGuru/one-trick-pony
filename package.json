@@ -1,0 +1,18 @@
+{
+  "name": "one-trick-pony",
+  "description": "one-trick-pony is a limited DNS server which only serves up the minimum set of required servers for Agar.io game play but not for its associated ads, for example.",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "dnsd": "^0.9.6",
+    "express": "~4.13.1",
+    "jade": "~1.11.0",
+    "morgan": "~1.6.1",
+    "serve-favicon": "~2.3.0"
+  }
+}

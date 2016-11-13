@@ -1,0 +1,252 @@
+extends layout
+//- title, webPort, dnsPort, dnsAddr
+
+block content
+  h1= title
+  p This is a limited DNS server which only serves up the minimum set of required servers for Agar.io game play but not for its associated ads, for example. This should allow you to play the game without disruptions, without loss of earned experience points and without the buggy ad-related code which should make it easier to play without those frequent game crashes.
+  p(style="margin:0") Current configuration:
+  p(style="margin:0") &nbsp;&nbsp;&nbsp;webserver: *:#{webPort}
+  p(style="margin:0") &nbsp;&nbsp;&nbsp;DNS server: #{dnsAddr}:#{dnsPort}
+  p You can alter the port(s) the server listens to in the 
+    b config/index.js 
+    | file.
+    | Note that if you use the default port of 53 for the dnsPort or port 80 for 
+    | the webDefaultPort then you'll need to run 
+    b node 
+    | in the superuser mode. See the section for running with the default 
+    | ports.
+  p Also note that the DNS server's IP address is by default set to 127.0.0.1 
+    | which results in the server binding to only its internal address. 
+    | Setting it to your external address is expected during installation 
+    | to allow another game computer to use it.
+  p &nbsp;
+  h3 Running the DNS server with the test ports 3000 and 3001
+  hr
+  p Ports 3000 and 3001 are useful for testing things since they don't require privileged-level ports and can be run by a standard user.
+  div(style="background-color:black;color:white")
+    pre
+      | $ 
+      b DEBUG=one-trick-pony:* npm start
+      | 
+      | 
+      | > one-trick-pony@1.0.0 start /Users/
+      i username
+      | /Sites/one-trick-pony
+      | > node ./bin/www
+      | 
+      |   
+      font(color="cyan") one-trick-pony:server
+      |  web server listening on *:#{webPort} 
+      font(color="cyan") +0ms
+      |   
+      |   
+      font(color="cyan") one-trick-pony:server
+      |  dns server listening on #{dnsAddr}:#{dnsPort} 
+      font(color="cyan") +3ms
+      | 
+      | 
+  p &nbsp;
+  h3 Testing the DNS server with dig
+  hr
+  p [A] records returned for the game-related servers.
+  div(style="background-color:black;color:white")
+    pre
+      | $ 
+      b dig -p #{dnsPort} @#{dnsAddr} A www.agar.io
+      | 
+      | 
+      | ; <<>> DiG 9.8.3-P1 <<>> -p #{dnsPort} @#{dnsAddr} A www.agar.io
+      | ; (1 server found)
+      | ;; global options: +cmd
+      | ;; Got answer:
+      | ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 22364
+      | ;; flags: qr aa rd; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 0
+      | ;; WARNING: recursion requested but not available
+      | 
+      | ;; QUESTION SECTION:
+      | ;www.agar.io.			IN	A
+      | 
+      | ;; ANSWER SECTION:
+      | www.agar.io.		1255	IN	A	104.20.26.122
+      | www.agar.io.		1255	IN	A	104.20.25.122
+      | 
+      | ;; Query time: 11 msec
+      | ;; SERVER: #{dnsAddr}##{dnsPort}(#{dnsAddr})
+      | ;; WHEN: Sun Nov 13 06:47:49 2016
+      | ;; MSG SIZE  rcvd: 61
+      | 
+  hr
+  p [NS] SOA records returned for the zones themselves.
+  div(style="background-color:black;color:white")
+    pre
+      | $ 
+      b dig -p #{dnsPort} @#{dnsAddr} NS agar.io
+      | 
+      | 
+      | ; <<>> DiG 9.8.3-P1 <<>> -p #{dnsPort} @#{dnsAddr} NS agar.io
+      | ; (1 server found)
+      | ;; global options: +cmd
+      | ;; Got answer:
+      | ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 2271
+      | ;; flags: qr aa rd; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 0
+      | ;; WARNING: recursion requested but not available
+      | 
+      | ;; QUESTION SECTION:
+      | ;agar.io.			IN	NS
+      | 
+      | ;; AUTHORITY SECTION:
+      | agar.io.		600	IN	SOA	ns1.agar.io. root.agar.io. 1479048333 7200 1800 1209600 600
+      | 
+      | ;; Query time: 5 msec
+      | ;; SERVER: #{dnsAddr}##{dnsPort}(#{dnsAddr})
+      | ;; WHEN: Sun Nov 13 06:58:31 2016
+      | ;; MSG SIZE  rcvd: 70
+      | 
+  hr
+  p No data returned for everything else with a denial for recursion.
+  div(style="background-color:black;color:white")
+    pre
+      | $ 
+      b dig -p #{dnsPort} @#{dnsAddr} NS google.com
+      | 
+      | 
+      | ; <<>> DiG 9.8.3-P1 <<>> -p #{dnsPort} @#{dnsAddr} NS google.com
+      | ; (1 server found)
+      | ;; global options: +cmd
+      | ;; Got answer:
+      | ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 47601
+      | ;; flags: qr rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
+      | ;; WARNING: recursion requested but not available
+      | 
+      | ;; QUESTION SECTION:
+      | ;google.com.			IN	NS
+      | 
+      | ;; Query time: 1 msec
+      | ;; SERVER: #{dnsAddr}##{dnsPort}(#{dnsAddr})
+      | ;; WHEN: Sun Nov 13 07:00:30 2016
+      | ;; MSG SIZE  rcvd: 28
+      | 
+  p &nbsp;
+  h3 Testing the DNS server with nslookup
+  hr
+  p If you don't have dig on your computer, nslookup can also be used for this testing.
+  p [A] records returned for the game-related servers.
+  div(style="background-color:black;color:white")
+    pre
+      | $ 
+      b nslookup -port=#{dnsPort} -type=a www.agar.io @#{dnsAddr}
+      | 
+      | 
+      | Server:		#{dnsAddr}
+      | Address:	#{dnsAddr}##{dnsPort}
+      | 
+      | Name:	www.agar.io
+      | Address: 104.20.26.122
+      | Name:	www.agar.io
+      | Address: 104.20.25.122
+      | 
+  p &nbsp;
+  h3 Running the DNS server with the default ports of 53 and 80
+  hr
+  p Although 3000 and 3001 are fine for testing things, the default DNS port of 
+    | 53 is a privileged-level port and can only be run by superusers. The same 
+    | is true for port 80 for the web server.
+  h4 Linux work-around
+  p There is a work-around on Linux servers called 
+    b setcap
+    |  which allows 
+    b node
+    |  to run in the privileged-level port space. Note that in the command 
+    | below, the first pairing are apostrophes and the second pairing are 
+    | called "backticks" and the key is usually to the left of the number 
+    | 1 in the upper row.
+  div(style="background-color:black;color:white")
+    pre
+      | $ 
+      b sudo setcap 'cap_net_bind_service=+ep' `which node`
+      | 
+      | 
+  p This should allow 
+    b npm start
+    |  to run without complaining about an 
+    b EACCES
+    |  error.
+  div(style="background-color:black;color:white")
+    pre
+      | $ 
+      b DEBUG=one-trick-pony:* npm start
+      | 
+      | 
+      | > one-trick-pony@1.0.0 start /Users/
+      i username
+      | /Sites/one-trick-pony
+      | > node ./bin/www
+      | 
+      |   
+      font(color="cyan") one-trick-pony:server
+      |  web server listening on *:80 
+      font(color="cyan") +0ms
+      |   
+      |   
+      font(color="cyan") one-trick-pony:server
+      |  dns server listening on #{dnsAddr}:53 
+      font(color="cyan") +3ms
+      | 
+      | 
+  h4 Otherwise, say, on an OS X computer
+  p On systems which don't have the 
+    b setcap
+    |  command, you'll need to determine where your 
+    b node
+    |  command is located, promote yourself to the superuser 
+    | and then run 
+    b node
+    |  a slightly different way by giving it the full path to the program 
+    | and then bring up the server by calling the 
+    b www
+    |  file itself.
+   div(style="background-color:black;color:white")
+    pre
+      | $ 
+      b which node
+      | 
+      | 
+      | /Users/
+      i username
+      |/local/node/bin/node
+      | 
+      | $ 
+      b su
+      | 
+      | 
+      | # 
+      b cd /Users/
+        i username
+        | /Sites/one-trick-pony
+        | 
+      | 
+      | # 
+      b DEBUG=one-trick-pony:* /Users/
+        i username
+        | /local/node/bin/node ./bin/www
+      | 
+      | 
+      | > one-trick-pony@1.0.0 start /Users/
+      i username
+      | /Sites/one-trick-pony
+      | > node ./bin/www
+      | 
+      |   
+      font(color="cyan") one-trick-pony:server
+      |  web server listening on *:80 
+      font(color="cyan") +0ms
+      |   
+      |   
+      font(color="cyan") one-trick-pony:server
+      |  dns server listening on #{dnsAddr}:53 
+      font(color="cyan") +3ms
+      | 
+      | 
+  p When you're finished, don't forget to Ctl-C out of the server, then run the 
+    b exit
+    |  command to come out of superuser mode. 
