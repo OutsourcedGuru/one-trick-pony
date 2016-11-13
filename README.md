@@ -35,3 +35,9 @@ $ DEBUG=one-trick-pony:* npm start
 Next, open up a browser to your [http://localhost:3000](http://localhost:3000) website which should be running. If you have updated the dnsAddr value to your computer's external IP address, substitute this for "localhost" in the URL.
 
 See the webpage's documentation for further details on changing the default ports to their expected values.
+
+##Social
+
+Oh, and if you see me in the game (👁‍🗨⚙) and want to earn some free mass, just make sure that you've got eyes like this (regardless of whether or not you use a skin). 👀
+
+If you demonstrate some talent I might just team up with you.
