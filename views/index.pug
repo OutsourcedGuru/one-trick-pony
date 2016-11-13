@@ -134,7 +134,7 @@ block content
   div(style="background-color:black;color:white")
     pre
       | $ 
-      b nslookup -port=#{dnsPort} -type=a www.agar.io @#{dnsAddr}
+      b nslookup -port=#{dnsPort} -type=a www.agar.io #{dnsAddr}
       | 
       | 
       | Server:		#{dnsAddr}
@@ -250,3 +250,94 @@ block content
   p When you're finished, don't forget to Ctl-C out of the server, then run the 
     b exit
     |  command to come out of superuser mode. 
+  p &nbsp;
+  h3 Cool things you can now do
+  hr
+  p The easiest thing you could do now is to point your game computer's DNS to only 
+    | your new server. In this way, your Agar.io game can only talk to the game 
+    | server but fails in its attempts to talk to the many ad servers, metrics and 
+    | analytics servers. Take a look at how busy the game is in trying to reach out 
+    | to these unnecessary servers...
+  div(style="background-color:black;color:white")
+    pre
+      | 192.168.0.4:53831/udp4 {"id":59191,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"newsfeed.miniclippt.com","type":"AAAA","class":"IN"}]}
+      | 192.168.0.4:64001/udp4 {"id":22802,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"newsfeed.miniclippt.com","type":"A","class":"IN"}]}
+      | 192.168.0.4:55746/udp4 {"id":25464,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"prod-miniclip-v3-881814867.us-west-2.elb.amazonaws.com","type":"AAAA","class":"IN"}]}
+      | 192.168.0.4:50996/udp4 {"id":506,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"prod-miniclip-v3-881814867.us-west-2.elb.amazonaws.com","type":"A","class":"IN"}]}
+      | 192.168.0.4:59482/udp4 {"id":8466,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"ads.mopub.com","type":"AAAA","class":"IN"}]}
+      | 192.168.0.4:62506/udp4 {"id":56242,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"ads.mopub.com","type":"A","class":"IN"}]}
+      | 192.168.0.4:53035/udp4 {"id":42816,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"services.miniclippt.com","type":"AAAA","class":"IN"}]}
+      | 192.168.0.4:58328/udp4 {"id":35266,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"services.miniclippt.com","type":"A","class":"IN"}]}
+      | 192.168.0.4:58071/udp4 {"id":60516,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"graph.facebook.com","type":"AAAA","class":"IN"}]}
+      | 192.168.0.4:58928/udp4 {"id":12556,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"graph.facebook.com","type":"A","class":"IN"}]}
+      | 192.168.0.4:54233/udp4 {"id":62875,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"connect.tapjoy.com","type":"AAAA","class":"IN"}]}
+      | 192.168.0.4:63258/udp4 {"id":39593,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"connect.tapjoy.com","type":"A","class":"IN"}]}
+      | 192.168.0.4:57127/udp4 {"id":5339,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"cm.miniclippt.com","type":"AAAA","class":"IN"}]}
+      | 192.168.0.4:59476/udp4 {"id":22292,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"cm.miniclippt.com","type":"A","class":"IN"}]}
+      | 192.168.0.4:60930/udp4 {"id":34522,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"h.online-metrix.net","type":"AAAA","class":"IN"}]}
+      | 192.168.0.4:59567/udp4 {"id":14291,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"h.online-metrix.net","type":"A","class":"IN"}]}
+      | 192.168.0.4:54056/udp4 {"id":7302,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"mobile-live-v5-0.agario.miniclippt.com","type":"AAAA","class":"IN"}]}
+      | 192.168.0.4:58198/udp4 {"id":51438,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"ws.tapjoyads.com","type":"AAAA","class":"IN"}]}
+      | 192.168.0.4:52667/udp4 {"id":11139,"type":"request","responseCode":0,"opcode":"query","authoritative":false,"truncated":false,"recursion_desired":true,"recursion_available":false,"authenticated":false,"checking_disabled":false,
+      | "question":[{"name":"ws.tapjoyads.com","type":"A","class":"IN"}]}
+      | 
+  p Now that you *own* the DNS server, you have more control than you probably think you do. 
+    | You can now change the regions if you'd like in the 
+    b bin/www
+    |  file within the dns_handler() function itself. Use 
+    b nslookup
+    |  locally to find out how the various entries resolve for you and update 
+    | your code if you'd like. Since I'm here in SOCAL, I'm sure I'll get
+    | different Amazon AWS servers than you might. The same goes for Facebook, 
+    | I'd guess.
+  p That particular DNS A-record server 
+    b m.agar.io
+    |  actually serves up the 
+    | interface. See 
+    a(href="https://outsourcedguru.wordpress.com/2016/07/03/hacking-agar-io-part-2/",target="_blank") my earlier blog entry
+    |  on this API. Knowing this, you 
+    | can intercept the communications and serve up your own m.agar.io 
+    | server if you'd like. You might do this if you want to control game 
+    | play in local party mode and yet still do FFA play. See the blog entry 
+    | to read how I've done this before.
+  p Additionally, if you are running a local Agar game server then by controlling 
+    | the DNS you can easily point local people to your server.
+  p Next, I'll probably work up a man-in-the-middle gateway server which gets 
+    | requests from the game, uses curl to submit the response to the real 
+    | server, interpret/change the result and send it back to the client (game). 
+    | I'm guessing I ought to be able to manipulate coins as some of the people 
+    | are doing.
+  p Additionally, I would like to run another server which will voyeur the game 
+    | in progress and display the entire game grid, say, on a companion 
+    | computer. In this way, you would be able to see the "big picture" and 
+    | to immediately tell where you are in the game, where trouble is, etc.
+  p And finally, I think the man-in-the-middle would allow you to more easily 
+    | serve up minions now that you know which game server you'd be attached 
+    | to.
+  p &nbsp;
+  h3 When you're done
+  hr
+  p Dont' forget to put your game computer's DNS settings back to the way they 
+    | were when you started. It's easy to forget and then think that your 
+    | Internet is wonky.
+  p If you're like me and you play on an iPad, I've found the easiest way is 
+    | just to "Forget This Network" for my wi-fi zone and then add it back. 
+    | It will re-learn your DNS information automatically.
