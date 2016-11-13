@@ -1,5 +1,5 @@
 node_modules/* liguist-vendored
 README.md linguist-documentation
 views/*.pug linguist-documentation
-LICENSE linguist-documtation
+LICENSE linguist-documentation
 package.json linguist-documentation
