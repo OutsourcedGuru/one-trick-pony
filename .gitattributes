@@ -1,0 +1,3 @@
+node_modules/* liguist-vendored
+README.md linguist-documentation
+views/*.pug liguist-documentation
