@@ -1,7 +1,12 @@
 {
   "name": "one-trick-pony",
   "description": "one-trick-pony is a limited DNS server which only serves up the minimum set of required servers for Agar.io game play but not for its associated ads, for example.",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/OutsourcedGuru/one-trick-pony.git"
+  },
+  "license": "GPL-3.0",
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -11,8 +16,8 @@
     "debug": "~2.2.0",
     "dnsd": "^0.9.6",
     "express": "~4.13.1",
-    "jade": "~1.11.0",
     "morgan": "~1.6.1",
+    "pug": "^2.0.0-alpha6",
     "serve-favicon": "~2.3.0"
   }
 }
