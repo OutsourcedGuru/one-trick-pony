@@ -36,7 +36,7 @@ Next, open up a browser to your [http://localhost:3000](http://localhost:3000) w
 
 See the webpage's documentation for further details on changing the default ports to their expected values.
 
-##Social
+## Social
 
 Oh, and if you see me in the game (👁‍🗨⚙) and want to earn some free mass, just make sure that you've got eyes like this (regardless of whether or not you use a skin). 👀
 
