@@ -3,6 +3,9 @@ This is a limited DNS server which only serves up the minimum set of required se
 
 ![My Agar.io User](https://cloud.githubusercontent.com/assets/15971213/20247431/fda5b152-a980-11e6-801e-492c75d5457f.jpg)
 
+## Game lag associated with background downloading of ad content
+If you've ever suffered loss during game play because of game lag, look no further than the ads themselves as the culprit. The game begins downloading those video ads in the background which then disrupts the normal game play, causing those game-changing lags. **In other words: lose the ads, lose the lag.**
+
 ### Running the DNS server with the test ports 3000 and 3001
 
 Ports 3000 and 3001 are useful for testing things since they don't require privileged-level ports and can be run by a standard user.
