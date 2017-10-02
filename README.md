@@ -6,6 +6,9 @@ This is a limited DNS server which only serves up the minimum set of required se
 ## Game lag associated with background downloading of ad content
 If you've ever suffered loss during game play because of game lag, look no further than the ads themselves as the culprit. The game begins downloading those video ads in the background which then disrupts the normal game play, causing those game-changing lags. **In other words: lose the ads, lose the lag.**
 
+## Server suggestion
+I'm running this on a Raspberry Pi Zero W single-board computer ($10), with a 4GB microSD card ($5), a USB-to-micro-USB adapter cable and a Radio Shack—style USB barrel battery. The total cost then is something like $20, noting that you can power the Pi from your own computer if you'd like.
+
 ### Running the DNS server with the test ports 3000 and 3001
 
 Ports 3000 and 3001 are useful for testing things since they don't require privileged-level ports and can be run by a standard user.
