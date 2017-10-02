@@ -12,6 +12,11 @@ You can alter the port(s) the server listens to in the **config/index.js** file.
 ### Installation
 
 ```
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ curl -sLS https://apt.adafruit.com/add | sudo bash
+$ sudo apt-get install node
+$ sudo apt-get install git
 $ mkdir ~/Sites
 $ cd ~/Sites
 $ git clone https://github.com/OutsourcedGuru/one-trick-pony.git
