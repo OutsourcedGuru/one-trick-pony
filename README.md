@@ -16,6 +16,7 @@ Ports 3000 and 3001 are useful for testing things since they don't require privi
 You can alter the port(s) the server listens to in the **config/index.js** file. Note that if you use the default port of 53 for the **dnsPort** or port 80 for the **webDefaultPort** then you'll need to run node in the superuser mode. See the documentation included in the webserver for running with the default ports. (So you'll want to run it first with the included ones in order to read that documentation.)
 
 ### Installation
+I'm assuming Raspbian/Ubuntu/Debian for your operating system below. If you're on something else, the first four commands may need to be different for you.
 
 ```
 $ sudo apt-get update
