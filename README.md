@@ -17,6 +17,8 @@ You can alter the port(s) the server listens to in the **config/index.js** file.
 ```
 $ sudo apt-get update
 $ sudo apt-get upgrade
+# Get some coffee. No, seriously. Walk to Starbucks because this
+# will take some time.
 $ curl -sLS https://apt.adafruit.com/add | sudo bash
 $ sudo apt-get install node
 $ sudo apt-get install git
