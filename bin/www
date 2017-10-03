@@ -98,6 +98,28 @@ function dns_handler(req, res) {
       console.log(txtConsole.success);
       bAuthoritative = true;
     }
+    // Amazon
+    if (hostname == 'ec2-13-57-24-78.us-west-1.compute.amazonaws.com') {
+      res.answer.push({name:hostname, type:"A", data:"13.57.24.78", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+    if (hostname == 'ec2-13-56-255-231.us-west-1.compute.amazonaws.com') {
+      res.answer.push({name:hostname, type:"A", data:"13.56.255.231", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+    if (hostname == 'ec2-54-193-57-222.us-west-1.compute.amazonaws.com') {
+      res.answer.push({name:hostname, type:"A", data:"54.193.57.222", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+    if (hostname == 'ec2-54-193-65-60.us-west-1.compute.amazonaws.com') {
+      res.answer.push({name:hostname, type:"A", data:"54.193.65.60", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+
     // Standard stuff for an iPad
     if (hostname == 'www.apple.com') {
       res.answer.push({name:hostname, type:"A", data:"23.210.101.240", "ttl":ttl});
@@ -128,12 +150,55 @@ function dns_handler(req, res) {
       console.log(txtConsole.success);
       bAuthoritative = true;
     }
+    if (hostname == 'mesu.apple.com') {
+      res.answer.push({name:hostname, type:"A", data:"17.253.3.208", "ttl":ttl});
+      res.answer.push({name:hostname, type:"A", data:"17.253.3.210", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
     if (hostname == 'p50-buy.itunes.apple.com') {
       res.answer.push({name:hostname, type:"A", data:"17.173.66.101", "ttl":ttl});
       console.log(txtConsole.success);
       bAuthoritative = true;
     }
-    if (hostname == 'api.weather.com') {
+    if (hostname == 'p45-keyvalueservice.icloud.com') {
+      res.answer.push({name:hostname, type:"A", data:"17.248.129.172", "ttl":ttl});
+      res.answer.push({name:hostname, type:"A", data:"17.248.129.207", "ttl":ttl});
+      res.answer.push({name:hostname, type:"A", data:"17.248.129.201", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+    if (hostname == 'gsa.apple.com') {
+      res.answer.push({name:hostname, type:"A", data:"17.32.194.34", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+    if (hostname == 'setup.icloud.com') {
+      res.answer.push({name:hostname, type:"A", data:"17.248.129.146", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+    if (hostname == 'configuration.apple.com') {
+      res.answer.push({name:hostname, type:"A", data:"23.200.229.222", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+    if (hostname == 'init.ess.apple.com') {
+      res.answer.push({name:hostname, type:"A", data:"70.186.27.10", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+    if (hostname == 'query.ess.apple.com') {
+      res.answer.push({name:hostname, type:"A", data:"17.178.104.39", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+    if (hostname == 'iphonesubmissions.apple.com') {
+      res.answer.push({name:hostname, type:"A", data:"17.171.98.35", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
+     if (hostname == 'api.weather.com') {
       res.answer.push({name:hostname, type:"A", data:"104.75.128.214", "ttl":ttl});
       console.log(txtConsole.success);
       bAuthoritative = true;
