@@ -103,6 +103,11 @@ function dns_handler(req, res) {
       console.log(txtConsole.success);
       bAuthoritative = true;
     }
+    if (hostname == 'ec2-13-56-253-1.us-west-1.compute.amazonaws.com') {
+      res.answer.push({name:hostname, type:"A", data:"13.56.253.1", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
     if (hostname == 'ec2-13-56-255-231.us-west-1.compute.amazonaws.com') {
       res.answer.push({name:hostname, type:"A", data:"13.56.255.231", "ttl":ttl});
       console.log(txtConsole.success);
