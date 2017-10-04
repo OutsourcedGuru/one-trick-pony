@@ -104,7 +104,7 @@ function dns_handler(req, res) {
       bAuthoritative = true;
     }
     if (hostname == 'ec2-13-56-250.213.us-west-1.compute.amazonaws.com') {
-      res.answer.push({name:hostname, type:"A", data:"13.56.250.213", "ttl":ttl};
+      res.answer.push({name:hostname, type:"A", data:"13.56.250.213", "ttl":ttl});
       console.log(txtConsole.success);
       bAuthoritative = true;
     }
