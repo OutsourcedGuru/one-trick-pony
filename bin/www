@@ -128,6 +128,11 @@ function dns_handler(req, res) {
       console.log(txtConsole.success);
       bAuthoritative = true;
     }
+    if (hostname == 'ec2-52-53-173-150.us-west-1.compute.amazonaws.com') {
+      res.answer.push({name:hostname, type:"A", data:"52.53.173.150", "ttl":ttl});
+      console.log(txtConsole.success);
+      bAuthoritative = true;
+    }
     if (hostname == 'ec2-54-67-125-95.us-west-1.compute.amazonaws.com') {
       res.answer.push({name:hostname, type:"A", data:"54.67.125.95", "ttl":ttl});
       console.log(txtConsole.success);
