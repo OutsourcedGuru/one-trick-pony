@@ -58,3 +58,9 @@ You definitely want to update to the latest v2 of this since Agar.io looks like 
 Oh, and if you see me in the game (👁‍🗨⚙) and want to earn some free mass, just make sure that you've got eyes like this (regardless of whether or not you use a skin). 👀
 
 If you demonstrate some talent I might just team up with you.
+
+|Donate||Cryptocurrency|
+|:-----:|---|:--------:|
+| ![eth-receive](https://user-images.githubusercontent.com/15971213/40564950-932d4d10-601f-11e8-90f0-459f8b32f01c.png) || ![btc-receive](https://user-images.githubusercontent.com/15971213/40564971-a2826002-601f-11e8-8d5e-eeb35ab53300.png) |
+|Ethereum||Bitcoin|
+
