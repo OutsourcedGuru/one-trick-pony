@@ -17,7 +17,7 @@
     "debug": "~2.6.9",
     "dnsd": "^0.9.6",
     "express": "~4.13.1",
-    "morgan": "~1.6.1",
+    "morgan": "~1.9.1",
     "pug": "^2.0.0-alpha6",
     "serve-favicon": "~2.3.0"
   }
